@@ -175,104 +175,6 @@
 <script type="text/javascript" src="https://content.ucgstatic.eu/etc/designs/ucpublic/it/js/keep-alive.js"></script>
 <script type="text/javascript" src="https://content.ucgstatic.eu/etc/designs/ucpublic/it/js/placeholderCrmProducts.js"></script>
 <script type="text/javascript" src="https://content.ucgstatic.eu/etc/designs/ucpublic/it/clientlibs/chat.min.js"></script>
-<script>
-    var segmentCode='3';
-    var productCode='';
-    var fixAppLink='';
-    var isAuthor=false;
-
-    var seamlessSelector = "";
-
-    console.log('segment&product'+segmentCode+productCode);
-
-    function resetProfilingCookies( reloadPage ) {
-        reloadPage = typeof reloadPage === 'undefined' ? true : reloadPage;
-        var cookieDomain='.usinet.it';
-        $.getJSON('/bin/gimb/servlet/loadNdg?op=reset&scope=min');
-        
-            cookieDomain='.unicredit.it';
-        
-        Cookies.remove("CHDETAIL",{ path: '/', domain:cookieDomain });
-        Cookies.remove("MCHANNEL",{ path: '/', domain:cookieDomain });
-        if( reloadPage ){
-            location.reload();
-        }
-    }
-
-    function removeClawUci( reloadPage ) {
-        reloadPage = typeof reloadPage === 'undefined' ? true : reloadPage;
-        var cookieDomain='.usinet.it';
-        
-        cookieDomain='.unicredit.it';
-        
-        Cookies.remove("claw_uci_enable",{ path: '/', domain:cookieDomain });
-        Cookies.remove("claw_uci_date",{ path: '/', domain:cookieDomain });
-        if( reloadPage ){
-            location.reload();
-        }
-    }
-
-    $(document).ready(function() {
-        startCrmProduct();
-        /*$.ajax({
-            type: 'GET',
-            url: "/bin/gimb/servlet/cookie",
-            timeout: 10000,
-            data: {
-                name: "forceLoginDesktop",
-                value: "true",
-                isAuthor: isAuthor
-            }
-        });*/
-        var claw_uci_date = Cookies.get("claw_uci_date");
-        if (claw_uci_date !== undefined && sessionStorage.getItem("cookiesChecked") === null) {
-            sessionStorage.setItem("cookiesChecked","true");
-            $.get( "/content/ucpublic/it/info/informativa-cookies/jcr:content/reset/date.json").always(function( result ) {
-                var manualResetDate='';
-                try {
-                    manualResetDate = result.date;
-                } catch (e) {
-                    console.log("Error retrieving package date "+result);
-                }
-                var d = new Date();
-                if(manualResetDate!=='' && claw_uci_date<manualResetDate && manualResetDate<=(d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2, '0') + "-" + String(d.getDate()).padStart(2, '0')))
-                    removeClawUci(true);
-                /*else {
-                        $.ajax({
-                            type: 'GET',
-                            url: "/package.packageInfo",
-                            timeout: 10000,
-                            data: {
-                                packageProjectRoot: "gimb_ucpublic"
-                            },
-                            success: function (data) {
-                                try {
-                                    if (claw_uci_date < data.packageDate.substring(0, 10))
-                                        removeClawUci(true);
-                                } catch (e) {
-                                    console.log("Parse error for packageInfo");
-                                }
-                            }
-                        });
-                }*/
-
-            });
-
-        }else if(claw_uci_date === undefined && Cookies.get("claw_uci_enable")!==undefined)
-            removeClawUci(true);
-
-
-
-        function isIE() {
-            var ua = window.navigator.userAgent;
-            return ua.indexOf("MSIE ") > 0 || !!ua.match(/Trident.*rv\:11\./);
-        }
-        if(sessionStorage.getItem("UAG") === null){
-            isIE()?sessionStorage.setItem("UAG","IE0"):sessionStorage.setItem("UAG","ND");
-        }
-
-    });
-</script>
     
 
     <!-- [POS6] -->
@@ -378,19 +280,6 @@
 
 		
 
-
-
-
-
-
-
-
-<script type="text/javascript">
-    var d = new Date();
-    d.setTime(d.getTime() + (24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
-    document.cookie = "last_visited_segment=3; " + expires + "; path=/";
-</script>
 
 
 		<div id="pageInfo" data-currentpageid="evuiw8dyun"></div>
